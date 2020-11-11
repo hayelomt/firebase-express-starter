@@ -1,10 +1,14 @@
-import * as admin from 'firebase-admin';
+import * as firebaseAdmin from 'firebase-admin';
 
-admin.initializeApp({
-  databaseURL: 'http://localhost:9000/?ns=typer-1154b',
-  projectId: 'fire-tut-36ff2',
-});
+try {
+  firebaseAdmin.initializeApp({
+    databaseURL: 'http://localhost:9000/?ns=typer-1154b',
+    projectId: 'fire-tut-36ff2',
+  });
+} catch (_err) {}
 
-export const db = admin.firestore();
+export const db = firebaseAdmin.firestore();
 
-export const rtdb = admin.database();
+export const rtdb = firebaseAdmin.database();
+
+export const admin = firebaseAdmin;

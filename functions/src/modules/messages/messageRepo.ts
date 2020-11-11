@@ -8,10 +8,14 @@ export interface Message {
 }
 
 export default class MessageRepo {
-  messageRef = rtdb.ref('/messages');
+  private _messageRef = rtdb.ref('/messages');
+
+  get messageRef() {
+    return this._messageRef;
+  }
 
   async create(data: Message): Promise<NewData<Message>> {
-    const newMessageRef = this.messageRef.push();
+    const newMessageRef = this._messageRef.push();
     await newMessageRef.set(data);
 
     return { id: newMessageRef.key, data };

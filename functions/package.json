@@ -3,16 +3,17 @@
   "scripts": {
     "lint": "eslint \"src/**/*\"",
     "build": "tsc",
-    "watch": "tsc --watch",
+    "dev": "tsc --watch",
     "dev": "nodemon --ext 'ts' --exec 'clear && tsc'",
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "mocha -r ts-node/register .//**/*.test.ts",
-    "test:single": "mocha -r ts-node/register .//**/hello.test.ts",
-    "test:watch": "nodemon --ext 'ts' --exec 'clear && npm run test:single'"
+    "test": "mocha --require ts-node/register --require dotenv/config --extension ts --reporter src/__tests__/minReporter.js --spec 'src/__tests__/**/*.test.ts' --exit",
+    "test:single": "mocha  --require ts-node/register --require dotenv/config --extension ts --reporter src/__tests__/minReporter.js --watch",
+    "test:watch": "mocha --require ts-node/register --require dotenv/config --extension ts --reporter src/__tests__/minReporter.js --spec 'src/__tests__/**/*.test.ts' --watch",
+    "test:coverage": "nyc --reporter=text npm run test"
   },
   "engines": {
     "node": "12"
@@ -20,28 +21,37 @@
   "main": "dist/index.js",
   "dependencies": {
     "@types/glob": "^7.1.3",
+    "@types/module-alias": "^2.0.0",
     "camelcase": "^6.2.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0",
-    "glob": "^7.1.6"
+    "glob": "^7.1.6",
+    "module-alias": "^2.2.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/express": "^4.17.8",
     "@types/mocha": "^8.0.3",
+    "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^3.9.1",
     "@typescript-eslint/parser": "^3.8.0",
     "chai": "^4.2.0",
     "eslint": "^7.6.0",
     "eslint-import-resolver-typescript": "^2.3.0",
     "eslint-plugin-import": "^2.22.1",
-    "firebase-functions-test": "^0.2.0",
+    "faker": "^5.1.0",
+    "firebase-functions-test": "^0.2.3",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.6",
+    "nyc": "^15.1.0",
     "sinon": "^9.2.1",
+    "source-map-support": "^0.5.19",
+    "supertest": "^6.0.1",
     "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.8.0"
   },
   "private": true

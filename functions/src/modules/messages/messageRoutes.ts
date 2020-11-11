@@ -8,6 +8,14 @@ const messageController = new MessageController();
 
 router.post(
   '/',
+  // (
+  //   req: express.Request,
+  //   _res: express.Response,
+  //   next: express.NextFunction
+  // ) => {
+  //   console.log('middle', req.body);
+  //   next();
+  // },
   validationHandler(MessageRepo.validationRules()),
   messageController.store()
 );
