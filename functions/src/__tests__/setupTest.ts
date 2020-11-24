@@ -28,15 +28,17 @@ const deleteUsers = async () => {
 
 const resetDb = () => {
   beforeEach(async () => {
-    await admin.database().ref('/').remove();
+    await admin.database().ref().remove();
   });
 
   afterEach(async () => {
     await deleteUsers();
   });
 
-  after(() => {
+  after(async () => {
+    console.log('after');
     test.cleanup();
+    await admin.database().ref().remove();
   });
 };
 

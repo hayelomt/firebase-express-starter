@@ -21,4 +21,6 @@ Starter boilerplate for firebase, with rest api backed by express written with T
 
 - [ x ] Add unit testing
 - [ x ] Add testing coverage report
+- [ x ] Add Authentication
+- [ ]
 - [ ] Add testing for utility functions

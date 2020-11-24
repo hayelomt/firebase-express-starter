@@ -48,8 +48,4 @@ describe('message api', () => {
         },
       });
   });
-
-  it('tests api', async () => {
-    await request(app).get('/').expect(200).expect({ msg: 'hello' });
-  });
 });

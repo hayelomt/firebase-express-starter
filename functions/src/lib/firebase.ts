@@ -7,13 +7,14 @@ const config = {
   projectId: process.env.PROJECT_ID,
   apiKey: process.env.API_KEY,
   appId: process.env.APP_ID,
-  authDomain: 'http://localhost:9099/',
 };
 
 try {
   firebaseAdmin.initializeApp(config);
   firebaseApp.initializeApp(config);
-  firebaseApp.auth().useEmulator('http://localhost:9099/');
+  if (process.env.NODE_ENV !== 'production') {
+    firebaseApp.auth().useEmulator('http://localhost:9099/');
+  }
 } catch (_err) {}
 
 export const db = firebaseAdmin.firestore();
