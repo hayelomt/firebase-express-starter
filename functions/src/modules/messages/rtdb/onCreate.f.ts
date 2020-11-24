@@ -1,5 +1,5 @@
 import { database } from 'firebase-functions';
-import { rtdb } from '../../../lib/admin';
+import { rtdb } from '../../../lib/firebase';
 
 export default database.ref('/messages/{messageId}').onCreate((snap, ctx) => {
   const { messageId } = ctx.params;

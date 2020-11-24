@@ -2,9 +2,8 @@ import * as functions from 'firebase-functions';
 import * as camelCase from 'camelcase';
 import * as glob from 'glob';
 import * as dotenv from 'dotenv';
-import app from './lib/app';
-
 dotenv.config();
+import app from './modules/app';
 
 const files = glob.sync('./modules/**/*.f.js', {
   cwd: __dirname,

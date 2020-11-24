@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { CloudFunction, database } from 'firebase-functions';
 import { resetDb, test } from '../../../setupTest';
 import onCreateF from '../../../../modules/messages/rtdb/onCreate.f';
-import { admin } from '../../../../lib/admin';
+import { admin } from '../../../../lib/firebase';
 
 resetDb();
 

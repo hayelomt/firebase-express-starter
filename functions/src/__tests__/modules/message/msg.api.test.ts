@@ -1,8 +1,8 @@
 // import * as index from '../../../index';
 import * as request from 'supertest';
-import app from '../../../lib/app';
+import app from '../../../modules/app';
 import { resetDb } from '../../setupTest';
-import { admin } from '../../../lib/admin';
+import { admin } from '../../../lib/firebase';
 import { expect } from 'chai';
 
 resetDb();

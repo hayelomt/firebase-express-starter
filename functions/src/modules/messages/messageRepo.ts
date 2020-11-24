@@ -1,5 +1,5 @@
 import { check } from 'express-validator';
-import { rtdb } from '../../lib/admin';
+import { rtdb } from '../../lib/firebase';
 import { NewData } from '../../lib/sharedTypes';
 
 export interface Message {
