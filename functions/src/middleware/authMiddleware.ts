@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import { firebase } from '../lib/firebase';
+import { admin } from '../lib/firebase';
 import AuthenticationError from '../lib/errors/authenticationError';
 import { RequestExtended } from '../lib/sharedTypes';
 
@@ -13,7 +13,7 @@ export default async (
   }
 
   try {
-    await firebase.auth().signInWithCustomToken(req.token as string);
+    await admin.auth().verifyIdToken(req.token as string);
   } catch (err) {
     next(new AuthenticationError('Invalid Token'));
   }

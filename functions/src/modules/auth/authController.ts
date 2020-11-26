@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import catchAsync from '../../lib/catchAsync';
-import { admin, firebase } from '../../lib/firebase';
+import { firebase } from '../../lib/firebase';
 
 export default class AuthController {
   login() {
@@ -10,9 +10,7 @@ export default class AuthController {
         .auth()
         .signInWithEmailAndPassword(email, password);
 
-      const token = await admin
-        .auth()
-        .createCustomToken(data.user?.uid as string);
+      const token = await data.user?.getIdToken();
 
       res.json({ data, token });
     });

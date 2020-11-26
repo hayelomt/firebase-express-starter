@@ -36,7 +36,7 @@ const resetDb = () => {
   });
 
   after(async () => {
-    console.log('after');
+    // console.log('after');
     test.cleanup();
     await admin.database().ref().remove();
   });
