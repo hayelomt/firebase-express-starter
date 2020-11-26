@@ -1,7 +1,13 @@
-import * as functionTest from 'firebase-functions-test';
+import axios from 'axios';
 import * as path from 'path';
 import * as faker from 'faker';
+import * as functionTest from 'firebase-functions-test';
 import { admin, firebase } from '../lib/firebase';
+import { TestFunction } from 'mocha';
+
+const TEST_TIMEOUT: number = process.env.DEFAULT_TEST_TIMEOUT
+  ? parseInt(process.env.DEFAULT_TEST_TIMEOUT)
+  : 2000;
 
 let userUids: string[] = [];
 
@@ -31,7 +37,7 @@ const resetDb = () => {
     await admin.database().ref().remove();
   });
 
-  afterEach(async () => {
+  after(async () => {
     await deleteUsers();
   });
 
@@ -52,9 +58,16 @@ const createUser = async (
     const newUser = await firebase
       .auth()
       .createUserWithEmailAndPassword(userEmail, password);
-    const token = await admin
-      .auth()
-      .createCustomToken(newUser.user?.uid as string);
+
+    const {
+      data: { token },
+    } = await axios.post(
+      'http://localhost:5001/typer-1154b/us-central1/api/auth/login',
+      {
+        email: userEmail,
+        password,
+      }
+    );
 
     userUids.push(newUser.user?.uid as string);
     return { token, email: userEmail, password, user: newUser };
@@ -65,7 +78,18 @@ const createUser = async (
   return { token: 'token', email: userEmail, password, user: undefined };
 };
 
-export { test, resetDb, createUser };
+const testWrapper = (
+  it: TestFunction,
+  message: string,
+  cb: Function,
+  timeout: number = TEST_TIMEOUT
+) => {
+  it(message, async () => {
+    await cb();
+  }).timeout(timeout);
+};
+
+export { test, resetDb, createUser, testWrapper };
 
 export type TestUserType = {
   token: string;

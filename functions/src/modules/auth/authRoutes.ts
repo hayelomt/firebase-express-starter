@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import authMiddleware from '../../middleware/authMiddleware';
+import * as authMiddleware from '../../middleware/authMiddleware';
 import validationHandler from '../../middleware/validationHandler';
 import AuthController from './authController';
 import AuthRepo from './AuthRepo';
@@ -7,7 +7,7 @@ import AuthRepo from './AuthRepo';
 const router = Router();
 const authController = new AuthController();
 
-router.get('/', authMiddleware, (req, res) => {
+router.get('/', authMiddleware.isAuthenticated(), (req, res) => {
   res.json({ auth: true });
 });
 

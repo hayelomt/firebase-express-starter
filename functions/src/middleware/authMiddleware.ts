@@ -3,7 +3,7 @@ import { admin } from '../lib/firebase';
 import AuthenticationError from '../lib/errors/authenticationError';
 import { RequestExtended } from '../lib/sharedTypes';
 
-export default async (
+export const isAuthenticated = () => async (
   req: RequestExtended,
   _res: Response,
   next: NextFunction
