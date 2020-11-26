@@ -3,12 +3,6 @@ import * as path from 'path';
 import * as faker from 'faker';
 import * as functionTest from 'firebase-functions-test';
 import { admin, firebase } from '../lib/firebase';
-import { TestFunction } from 'mocha';
-
-const TEST_TIMEOUT: number = process.env.DEFAULT_TEST_TIMEOUT
-  ? parseInt(process.env.DEFAULT_TEST_TIMEOUT)
-  : 2000;
-
 let userUids: string[] = [];
 
 const test = functionTest(
@@ -78,18 +72,7 @@ const createUser = async (
   return { token: 'token', email: userEmail, password, user: undefined };
 };
 
-const testWrapper = (
-  it: TestFunction,
-  message: string,
-  cb: Function,
-  timeout: number = TEST_TIMEOUT
-) => {
-  it(message, async () => {
-    await cb();
-  }).timeout(timeout);
-};
-
-export { test, resetDb, createUser, testWrapper };
+export { test, resetDb, createUser };
 
 export type TestUserType = {
   token: string;

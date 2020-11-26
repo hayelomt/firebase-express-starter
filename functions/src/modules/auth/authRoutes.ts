@@ -7,7 +7,7 @@ import AuthRepo from './AuthRepo';
 const router = Router();
 const authController = new AuthController();
 
-router.get('/', authMiddleware.isAuthenticated(), (req, res) => {
+router.get('/', authMiddleware.isAuthenticated, (req, res) => {
   res.json({ auth: true });
 });
 
